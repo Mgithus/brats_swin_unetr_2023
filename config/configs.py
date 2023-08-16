@@ -17,27 +17,27 @@ from functools import partial
 
 class Config:
     class newGlobalConfigs:
-        root_dir = "/home/dlrs/Desktop/2023data"
-        train_root_dir = root_dir + "/train_ds/ASNR-MICCAI-BraTS2023-GLI-Challenge-TrainingData"
-        test_root_dir = root_dir + "/val_ds/ASNR-MICCAI-BraTS2023-GLI-Challenge-ValidationData"
-        path_to_xlsx = root_dir + "/home/dlrs/Desktop/BraTS2023_2017_GLI_Mapping.xlsx"
+        root_dir = "/content/drive/MyDrive/20_samples_2023data"
+        train_root_dir = root_dir + "/train_ds"
+        test_root_dir = root_dir + "/test_ds"
+        path_to_xlsx = root_dir + "/BraTS2023_2017_GLI_Mapping.xlsx"
         pretrained_model = ""
         survival_info_df = ""
         a_test_patient = "BraTS-GLI-00016-000" # change it to other patients, if needed
         full_patient_path = train_root_dir +"/" + a_test_patient
         name_mapping_df = path_to_xlsx
         seed = 50
-        json_file = root_dir + "/dataset.json"
+        json_file = root_dir + "/short_2023data.json"
         
         class OtherPC:
-            root_dir = "/home/dlrs/Desktop/swin unetr/short_DATA_for_swin_unetr"
-            train_root_dir = root_dir + "/home/dlrs/Desktop/swin unetr/short_DATA_for_swin_unetr/extracted_short_data/TrainingData"
-            path_to_csv = root_dir + "/home/dlrs/Desktop/BraTS2023_2017_GLI_Mapping.xlsx"
-            a_test_patient = "BraTS2021_00006" # change it to other patients, if needed
+            root_dir = "/content/drive/MyDrive"
+            train_root_dir = root_dir + "/short_2021data"
+            path_to_csv = "/content/drive/MyDrive/20_samples_2023data/BraTS2023_2017_GLI_Mapping.xlsx"
+            a_test_patient = "BraTS2021_00002" # change it to other patients, if needed
             full_patient_path = train_root_dir +"/" + a_test_patient
             name_mapping_df = path_to_csv
             seed = 50
-            json_file = root_dir + "/brats23_folds.json"
+            json_file = root_dir + "/brats21_folds.json"
 
         class swinUNetCongis:
             roi = (128, 128, 128)
@@ -80,5 +80,8 @@ class Config:
                 optimizer = torch.optim.AdamW(model.parameters(), lr=learning_rate, 
                                               weight_decay=weight_decay)
                 scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=max_epochs)
+
+
+
 
 
