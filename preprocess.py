@@ -74,14 +74,14 @@ def insert_cases_paths_to_df(df:str,
     df = df[df['BraTS2023'].notna()]
     for _ , row in df.iterrows():
         id = row["BraTS2023"]
+        path = None
+        type = None
         if id in os.listdir(train_dir):
             path = train_dir + "/" + id
             if id in train:
                 type = "train"
             elif id in val:
                 type = "val"
-            else:
-                type = None
         elif id in os.listdir(test_dir):
             path = test_dir + "/" + id
             type = "test"
@@ -90,7 +90,7 @@ def insert_cases_paths_to_df(df:str,
     df['path'] = paths
     df['phase'] = phase
     return df
-    
+  
 
 def data_transforms(phase: str = 'train'):
     '''apply data transforms to an 3D image
