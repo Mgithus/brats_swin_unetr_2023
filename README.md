@@ -2,7 +2,9 @@
 
 
 after changing configs
+
 a change in preprocess.py was madebecause of following error:
+
 **error:**
 Configuring...
 Configured. Now Loading dataset...
@@ -16,6 +18,7 @@ Traceback (most recent call last):
   File "/content/drive/MyDrive/Brats-20-Tumors-segmentation/utils/preprocess.py", line 88, in insert_cases_paths_to_df
     paths.append(path)
 UnboundLocalError: local variable 'path' referenced before assignment
+
 **change:**
 def insert_cases_paths_to_df(df:str, 
                              train_dir:str = None, 
