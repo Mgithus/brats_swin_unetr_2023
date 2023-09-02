@@ -23,10 +23,15 @@ from monai.transforms import (
     RandScaleIntensityd,
     RandShiftIntensityd,
     RandSpatialCropd,
+    RandElasticDeformd,  # Add elastic deformation
+    RandAdjustContrastd,  # Add brightness augmentation
+    RandGammaTransformd,  # Increase the aggressiveness of gamma augmentation
     Spacingd,
     EnsureChannelFirstd,
     EnsureTyped,
     EnsureType)
+
+
 
 from monai.utils import set_determinism
 set_determinism(seed=0)
@@ -146,6 +151,10 @@ class BratsDataset20(Dataset):
 
         return mask
 
+
+
+
+
 def augmentations(phase):
   '''apply data augmentation options on 3D medical images, on some cases image
   transformation is needed to make image amenable to the network. List of the transfromation
@@ -173,7 +182,10 @@ def augmentations(phase):
             RandFlipd(keys=["image", "mask"], prob=0.5, spatial_axis=2),
             NormalizeIntensityd(keys="image", nonzero=True, channel_wise=True),
             RandScaleIntensityd(keys="image", factors=0.1, prob=1.0),
-            RandShiftIntensityd(keys="image", offsets=0.1, prob=1.0)])
+            RandShiftIntensityd(keys="image", offsets=0.1, prob=1.0),
+            RandElasticDeformd(keys=["image", "mask"], sigma_range=(5, 8), magnitude_range=(1, 2), prob=0.3),  # Elastic deformation
+            RandAdjustContrastd(keys="image", factor_range=(0.5, 2.0), prob=0.3),  # Brightness augmentation
+            RandGammaTransformd(keys="image", gamma_range=(0.7, 1.5), prob=0.3)  # Increased gamma augmentation aggressiveness])
     return train_transform
 
   elif phase == 'val':
